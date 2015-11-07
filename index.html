@@ -19,22 +19,21 @@
 
       <p>James Bond 007 Configuration</p>
       
-      
       <form id="configure-form" action="#" method="POST">
-        <div style = "background: #ddd">
+        <div style = "background: #ddd; padding:3px;">
           <b>Temperature Unit</b> 
           <br>
-          <input id="isCels" type="radio" name="temperatureUnit" value="1" checked>Celsius
+          <input id="isCels1" type="radio" name="temperatureUnit" value="1">Celsius
           <br>
-          <input type="radio" name="temperatureUnit" value="0">Fahrenheit
+          <input id="isCels2" type="radio" name="temperatureUnit" value="0">Fahrenheit
         </div>
         <br>  <br>  
-        <div style = "background: #ddd">
+        <div style = "background: #ddd; padding:3px;">
           <b>Battery Theme</b> 
           <br>
-          <input type="radio" id = "isAuthentic" name="style" value="1" checked>Authentic <span>*shows "watch laser" and ammunition</span>
+          <input type="radio" id = "isAuthentic1" name="style" value="1">Authentic <span>*shows "watch laser" and ammunition</span>
           <br>
-          <input type="radio" name="style" value="0">Practical <span>*shows "battery" and percent</span>
+          <input type="radio" id = "isAuthentic2" name="style" value="0">Practical <span>*shows "battery" and percent</span>
         </div>
         <br><br>
         <div style = "width: 100%; text-align: right">
@@ -71,29 +70,29 @@
           isCels = 1;
         }
         if(isNaN(isAuthentic)) {
-          isAuthentic = 0;
+          isAuthentic = 1;
         }
         
         if(isCels) {
-          $('#isCels').prop('checked', true);
-          $('#isCels').prop('checked', false);
+          $('#isCels1').prop('checked', true);
+          $('#isCels2').prop('checked', false);
         } else {
-          $('#isCels').prop('checked', false);
-          $('#isCels').prop('checked', true);
+          $('#isCels1').prop('checked', false);
+          $('#isCels2').prop('checked', true);
         }
         
         if(isCels) {
-          $('#isAuthentic').prop('checked', true);
-          $('#isAuthentic').prop('checked', false);
+          $('#isAuthentic1').prop('checked', true);
+          $('#isAuthentic2').prop('checked', false);
         } else {
-          $('#isAuthentic').prop('checked', false);
-          $('#isAuthentic').prop('checked', true);
+          $('#isAuthentic1').prop('checked', false);
+          $('#isAuthentic2').prop('checked', true);
         }
       });
  
       $("#configure-form").submit(function(e) {  
-        isCels = $('#isCels').prop('checked') ? 1 : 0;
-        isAuthentic = $('#isAuthentic').prop('checked') ? 1 : 0;
+        isCels = $('#isCels1').prop('checked') ? 1 : 0;
+        isAuthentic = $('#isAuthentic1').prop('checked') ? 1 : 0;
         
         var j = {
           isCels : parseInt(isCels),
