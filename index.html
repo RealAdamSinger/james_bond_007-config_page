@@ -17,6 +17,25 @@
     <section class="main-content">
 
       <p>James Bond 007 Configuration</p>
+      
+      
+      <form>
+        <b>Temperature Unit</b> 
+        <br>
+        <input type="radio" name="temperatureUnit" value="C" checked>C
+        <br>
+        <input type="radio" name="temperatureUnit" value="F">F
+        
+        
+        <b>Style</b> 
+        <br>
+        <input type="radio" name="style" value="Authentic" checked>Authentic
+        <br>
+        <input type="radio" name="style" value="Practical">Practical
+      </form>
+
+
+
 
       
 
@@ -24,4 +43,12 @@
 
   
   </body>
+  
+  <script>
+function myFunction() {
+    var x = document.getElementById("myRadio");
+    x.checked = true;
+}
+</script>
+  
 </html>
