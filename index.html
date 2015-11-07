@@ -21,21 +21,21 @@
       
       
       <form id="configure-form" action="#" method="POST">
-        <b>Temperature Unit</b> 
-        <br>
-        <input id="temp" type="radio" name="temperatureUnit" value="C" checked>Celsius
-        <br>
-        <input type="radio" name="temperatureUnit" value="F">Fahrenheit
-      
+        <div style = "background: #ddd">
+          <b>Temperature Unit</b> 
+          <br>
+          <input id="isCels" type="radio" name="temperatureUnit" value="1" checked>Celsius
+          <br>
+          <input type="radio" name="temperatureUnit" value="0">Fahrenheit
+        </div>
         <br>  <br>  
-      
-        <b>Battery Theme</b> 
-        <br>
-        <input type="radio" id = "authentic" name="style" value="Authentic" checked>Authentic <span>*shows "watch laser" and ammunition</span>
-        
-        <br>
-        <input type="radio" name="style" value="Practical">Practical <span>*shows "battery" and percent</span>
-        
+        <div style = "background: #ddd">
+          <b>Battery Theme</b> 
+          <br>
+          <input type="radio" id = "isAuthentic" name="style" value="1" checked>Authentic <span>*shows "watch laser" and ammunition</span>
+          <br>
+          <input type="radio" name="style" value="0">Practical <span>*shows "battery" and percent</span>
+        </div>
         <br><br>
         <div style = "width: 100%; text-align: right">
           <input type="submit" value="Submit">
@@ -49,14 +49,55 @@
   </body>
   
   <script>
+  // Something like this to get query variables.
+      function getQueryParam(variable, default_) {
+          var query = location.search.substring(1);
+          var vars = query.split('&');
+          for (var i = 0; i < vars.length; i++) {
+              var pair = vars[i].split('=');
+              if (pair[0] == variable)
+                  return decodeURIComponent(pair[1]);
+          }
+          return default_ || false;
+      }    
+      var isCels;
+      var isAuthentic;
+      
+      $().ready(function () {
+        isCels = parseInt(localStorage.getItem("isCels"));      
+        isAuthentic = parseInt(localStorage.getItem("isAuthentic"));
+		
+        if(isNaN(isCels)) {
+          isCels = 1;
+        }
+        if(isNaN(isAuthentic)) {
+          isAuthentic = 0;
+        }
+        
+        if(isCels) {
+          $('#isCels').prop('checked', true);
+          $('#isCels').prop('checked', false);
+        } else {
+          $('#isCels').prop('checked', false);
+          $('#isCels').prop('checked', true);
+        }
+        
+        if(isCels) {
+          $('#isAuthentic').prop('checked', true);
+          $('#isAuthentic').prop('checked', false);
+        } else {
+          $('#isAuthentic').prop('checked', false);
+          $('#isAuthentic').prop('checked', true);
+        }
+      });
  
- $("#configure-form").submit(function(e) {  
-        isCels = $('#temp').prop('checked') ? 1 : 0;
-        isAuthentic = $('#authentic').prop('checked') ? 1 : 0;
+      $("#configure-form").submit(function(e) {  
+        isCels = $('#isCels').prop('checked') ? 1 : 0;
+        isAuthentic = $('#isAuthentic').prop('checked') ? 1 : 0;
         
         var j = {
-          isCels : parseInt(mBlink),
-          isAuthentic : parseInt(mInvert),
+          isCels : parseInt(isCels),
+          isAuthentic : parseInt(isAuthentic),
         };
         
         var return_to = getQueryParam('return_to', 'pebblejs://close#');
