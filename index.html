@@ -19,7 +19,7 @@
       <p>James Bond 007 Configuration</p>
       
       
-      <form  action='pebblejs://close#success' method="get">
+      <form>
         <b>Temperature Unit</b> 
         <br>
         <input type="radio" name="temperatureUnit" value="C" checked>C
@@ -35,14 +35,12 @@
         <br>
         <input type="radio" name="style" value="Practical">Practical <span>*shows "battery" and percent</span>
         
-        <input type="submit" value="Submit">
+        <br><br>
+        <div style = "width: 100%; text-align: right">
+          <button id = "btnSubmit" onclick="submitConfig()">Submit</button>
+        </div>
+        
       </form>
-
-
-
-
-
-      
 
     </section>
 
@@ -50,6 +48,26 @@
   </body>
   
   <script>
+    // Get query variables
+    function getQueryParam(variable, defaultValue) {
+      // Find all URL parameters
+      var query = location.search.substring(1);
+      var vars = query.split('&');
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+    
+        // If the query variable parameter is found, decode it to use and return it for use
+        if (pair[0] === variable) {
+          return decodeURIComponent(pair[1]);
+        }
+      }
+      return defaultValue || false;
+    }
+    function submitConfig() {
+      // Set the return URL depending on the runtime environment
+      var return_to = getQueryParam('return_to', 'pebblejs://close#');
+      document.location = return_to + encodeURIComponent(JSON.stringify(some_settings));
+    }
 
 </script>
   
