@@ -19,20 +19,25 @@
       <p>James Bond 007 Configuration</p>
       
       
-      <form>
+      <form  action='pebblejs://close#success' method="get">
         <b>Temperature Unit</b> 
         <br>
         <input type="radio" name="temperatureUnit" value="C" checked>C
         <br>
         <input type="radio" name="temperatureUnit" value="F">F
-        
-        
-        <b>Style</b> 
+      
+        <br>  <br>  
+      
+        <b>Battery Theme</b> 
         <br>
-        <input type="radio" name="style" value="Authentic" checked>Authentic
+        <input type="radio" name="style" value="Authentic" checked>Authentic <span>*shows "watch laser" and ammunition</span>
+        
         <br>
-        <input type="radio" name="style" value="Practical">Practical
+        <input type="radio" name="style" value="Practical">Practical <span>*shows "battery" and percent</span>
+        
+        <input type="submit" value="Submit">
       </form>
+
 
 
 
@@ -45,10 +50,7 @@
   </body>
   
   <script>
-function myFunction() {
-    var x = document.getElementById("myRadio");
-    x.checked = true;
-}
+
 </script>
   
 </html>
