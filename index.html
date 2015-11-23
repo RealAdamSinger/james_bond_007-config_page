@@ -1,52 +1,110 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="James bond 007-config page : ">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>James bond 007-config page</title>
+    <meta charset="UTF-8">
+    <title>James bond 007-config page by RealAdamSinger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header" style="background: black;">
+      <h2 class="project-tagline">The Name's Bond, James Bond</h2>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/RealAdamSinger/james_bond_007-config_page">View on GitHub</a>
+    <section class="main-content">
 
-          <h1 id="project_title">James bond 007-config page</h1>
-          <h2 id="project_tagline"></h2>
+      <p>James Bond 007 Configuration</p>
+      
+      <form id="configure-form" action="#" method="POST">
+        <!--<div style = "background: #ddd; padding:3px;">-->
+          <b>Temperature Unit</b> 
+          <br>
+          <input id="isCels1" type="radio" name="temperatureUnit" value="1">Celsius
+          <br>
+          <input id="isCels2" type="radio" name="temperatureUnit" value="0">Fahrenheit
+        <!--</div>-->
+        <br>  <br>  
+        <!--<div style = "background: #ddd; padding:3px;">-->
+          <b>Battery Theme</b> 
+          <br>
+          <input type="radio" id = "isAuthentic1" name="style" value="1">Authentic <span>*shows "watch laser" and ammunition</span>
+          <br>
+          <input type="radio" id = "isAuthentic2" name="style" value="0">Practical <span>*shows "battery" and percent</span>
+        <!--</div>-->
+        <br><br>
+        <div style = "width: 100%; text-align: right">
+          <input type="submit" value="Submit">
+        </div>
+        
+      </form>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/RealAdamSinger/james_bond_007-config_page/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/RealAdamSinger/james_bond_007-config_page/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+    </section>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a id="the-names-bond-james-bond" class="anchor" href="#the-names-bond-james-bond" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Name's Bond, James Bond</h3>
-
-<p>James Bond 007 Configuration</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">James bond 007-config page maintained by <a href="https://github.com/RealAdamSinger">RealAdamSinger</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
+  
+  <script>
+  // Something like this to get query variables.
+      function getQueryParam(variable, default_) {
+          var query = location.search.substring(1);
+          var vars = query.split('&');
+          for (var i = 0; i < vars.length; i++) {
+              var pair = vars[i].split('=');
+              if (pair[0] == variable)
+                  return decodeURIComponent(pair[1]);
+          }
+          return default_ || false;
+      }    
+      var isCels;
+      var isAuthentic;
+      
+      $().ready(function () {
+        isCels = parseInt(localStorage.getItem("KEY_ISCELS"));      
+        isAuthentic = parseInt(localStorage.getItem("KEY_ISAUTHENTIC"));
+		
+        if(isNaN(isCels)) {
+          isCels = 1;
+        }
+        if(isNaN(isAuthentic)) {
+          isAuthentic = 1;
+        }
+        
+        if(isCels) {
+          $('#isCels1').prop('checked', true);
+          $('#isCels2').prop('checked', false);
+        } else {
+          $('#isCels1').prop('checked', false);
+          $('#isCels2').prop('checked', true);
+        }
+        
+        if(isAuthentic) {
+          $('#isAuthentic1').prop('checked', true);
+          $('#isAuthentic2').prop('checked', false);
+        } else {
+          $('#isAuthentic1').prop('checked', false);
+          $('#isAuthentic2').prop('checked', true);
+        }
+      });
+ 
+      $("#configure-form").submit(function(e) {  
+        isCels = $('#isCels1').prop('checked') ? 1 : 0;
+        isAuthentic = $('#isAuthentic1').prop('checked') ? 1 : 0;
+        
+        var j = {
+          isCels : parseInt(isCels),
+          isAuthentic : parseInt(isAuthentic),
+        };
+        
+        var return_to = getQueryParam('return_to', 'pebblejs://close#');
+        document.location = return_to + JSON.stringify(j);
+        //window.location.href = "pebblejs://close#" + JSON.stringify(j);
+        e.preventDefault();
+      });
+
+  </script>
+  
 </html>
